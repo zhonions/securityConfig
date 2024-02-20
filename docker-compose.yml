@@ -1,0 +1,25 @@
+version: "3.9"
+
+networks:
+  mosaic_net:
+    name: mosaic_net
+    driver: bridge
+
+volumes:
+  mosaic-store:
+    driver: local
+
+services:
+  database:
+    image: postgres:13
+    container_name: database-mosaic
+    volumes:
+      - mosaic-store:/var/lib/postgresql
+    ports:
+      - 5435:5432
+    environment:
+      POSTGRES_USER: catarina
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: mosaic
+    networks:
+      - mosaic_net
